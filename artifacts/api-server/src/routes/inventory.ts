@@ -7,7 +7,7 @@ const router: IRouter = Router();
 
 router.get("/warehouses", async (req, res): Promise<void> => {
   const rows = await db.select().from(warehousesTable).orderBy(warehousesTable.name);
-  res.json(rows.map(w => ({ ...w, totalItems: 0 })));
+  res.json(rows.map((w: any) => ({ ...w, totalItems: 0 })));
 });
 
 router.post("/warehouses", async (req, res): Promise<void> => {

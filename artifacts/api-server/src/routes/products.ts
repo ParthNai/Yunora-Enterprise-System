@@ -48,7 +48,7 @@ router.get("/products", async (req, res): Promise<void> => {
   ]);
 
   res.json({
-    items: items.map(p => ({
+    items.map((p: any) => ({
       ...p,
       price: parseFloat(p.price as unknown as string),
       salePrice: p.salePrice ? parseFloat(p.salePrice as unknown as string) : null,
@@ -133,7 +133,7 @@ router.delete("/products/:id", async (req, res): Promise<void> => {
 // Categories
 router.get("/categories", async (req, res): Promise<void> => {
   const cats = await db.select().from(categoriesTable).orderBy(categoriesTable.name);
-  res.json(cats.map(c => ({ ...c, productCount: 0 })));
+  res.json(cats.map((c: any) => ({ ...c, productCount: 0 })));
 });
 
 router.post("/categories", async (req, res): Promise<void> => {

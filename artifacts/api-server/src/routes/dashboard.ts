@@ -64,7 +64,7 @@ router.get("/dashboard/top-products", async (req, res): Promise<void> => {
     price: productsTable.price,
   }).from(productsTable).limit(5);
 
-  const data = rows.map((p, i) => ({
+  const data = rows.map((p: any, i: number) => ({
     id: p.id,
     name: p.name,
     sales: Math.floor(Math.random() * 200) + 50,
@@ -76,7 +76,7 @@ router.get("/dashboard/top-products", async (req, res): Promise<void> => {
 
 router.get("/dashboard/recent-orders", async (req, res): Promise<void> => {
   const rows = await db.select().from(ordersTable).orderBy(sql`created_at desc`).limit(10);
-  const data = rows.map(o => ({
+  const data = rows.map((o: any) => ({
     ...o,
     total: o.total as unknown as number,
     createdAt: o.createdAt.toISOString(),
