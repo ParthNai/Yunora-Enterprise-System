@@ -1,0 +1,409 @@
+====================================================
+YUNORA ENTERPRISE SUPER ADMIN PANEL SYSTEM
+==========================================
+
+Create a world-class Enterprise Admin Panel.
+
+The Admin Panel must be powerful enough to manage the entire YUNORA business from one dashboard.
+
+The Admin Panel must not look like a basic ecommerce backend.
+
+It should feel like a premium ERP + CRM + Ecommerce Management System.
+
+Everything must be responsive.
+
+Everything must be secured.
+
+Everything must be manageable without coding.
+
+====================================================
+ADMIN DASHBOARD
+===============
+
+Dashboard must show:
+
+• Total Revenue
+• Today's Revenue
+• Monthly Revenue
+• Total Orders
+• Pending Orders
+• Delivered Orders
+• Cancelled Orders
+• Total Customers
+• Active Customers
+• Total Dealers
+• Website Visitors
+• Product Views
+• Wishlist Count
+• Cart Abandonment
+• Conversion Rate
+• Warranty Requests
+• Feedback Requests
+• Top Products
+• Top Categories
+
+Use:
+
+• Charts
+• Graphs
+• Analytics Cards
+• Reports
+
+====================================================
+PRODUCT MANAGEMENT SYSTEM
+=========================
+
+Admin can:
+
+• Add Product
+• Edit Product
+• Delete Product
+• Duplicate Product
+• Bulk Import Products
+• Bulk Export Products
+• Product Variants
+• Product Images
+• Product Videos
+• Product Specifications
+• Product Warranty
+• Product SEO
+
+Product Fields:
+
+• Product Name
+• SKU
+• Category
+• Sub Category
+• Collection
+• Brand
+• Price
+• Sale Price
+• Stock
+• Color
+• Size
+• Material
+• Description
+• Gallery Images
+• Videos
+• FAQs
+• Warranty
+
+====================================================
+HOMEPAGE MANAGEMENT SYSTEM
+==========================
+
+Admin can edit everything.
+
+Including:
+
+• Hero Images
+• Hero Videos
+• Hero Text
+• Buttons
+• Featured Products
+• Collections
+• Categories
+• Testimonials
+• Instagram Feed
+• Trust Section
+• Brand Story
+• Footer
+
+No coding required.
+
+Drag & Drop Homepage Builder Required.
+
+====================================================
+OFFER BAR MANAGEMENT
+====================
+
+The scrolling offer bar at the top must be editable.
+
+Admin can:
+
+• Add Offer
+• Edit Offer
+• Delete Offer
+• Schedule Offer
+• Set Start Date
+• Set End Date
+• Set Priority
+
+Examples:
+
+FREE SHIPPING
+
+FESTIVAL SALE
+
+BUY 2 GET 1
+
+LIMITED OFFER
+
+Offers automatically rotate.
+
+====================================================
+FESTIVAL CAMPAIGN MANAGER
+=========================
+
+Admin should be able to launch full campaigns.
+
+Examples:
+
+• Diwali Sale
+• Navratri Sale
+• Raksha Bandhan Sale
+• Christmas Sale
+• New Year Sale
+• Independence Day Sale
+
+Admin can change:
+
+• Homepage Banner
+• Offer Bar
+• Product Discounts
+• Popups
+• Landing Pages
+
+With one click.
+
+====================================================
+BANNER MANAGEMENT SYSTEM
+========================
+
+Admin can manage:
+
+• Homepage Banners
+• Mobile Banners
+• Category Banners
+• Festival Banners
+• Collection Banners
+
+Features:
+
+• Schedule Banner
+• Auto Expire Banner
+• Preview Banner
+• Drag & Drop Reorder
+
+====================================================
+ORDER MANAGEMENT
+================
+
+Admin can:
+
+• View Orders
+• Update Order Status
+• Generate Invoice
+• Print Invoice
+• Track Orders
+• Manage Returns
+• Manage Refunds
+
+====================================================
+CUSTOMER MANAGEMENT
+===================
+
+Admin can:
+
+• View Customers
+• Search Customers
+• Customer History
+• Order History
+• Wishlist History
+• Warranty History
+• Feedback History
+
+====================================================
+WARRANTY MANAGEMENT
+===================
+
+Admin can:
+
+• Create Warranty
+• Verify Warranty
+• Approve Claim
+• Reject Claim
+• Download Documents
+• Manage Product Registration
+
+====================================================
+REVIEW & FEEDBACK MANAGEMENT
+============================
+
+Admin can:
+
+• Approve Review
+• Reject Review
+• Feature Review
+• Hide Review
+
+Manage:
+
+• Ratings
+• Photos
+• Videos
+
+====================================================
+COUPON MANAGEMENT
+=================
+
+Admin can create:
+
+• Percentage Coupons
+• Fixed Amount Coupons
+• Festival Coupons
+• Dealer Coupons
+
+Examples:
+
+DIWALI25
+
+WELCOME10
+
+YUNORA50
+
+====================================================
+INVENTORY MANAGEMENT
+====================
+
+Admin can:
+
+• Add Stock
+• Remove Stock
+• Low Stock Alerts
+• Out Of Stock Alerts
+• Warehouse Management
+
+====================================================
+DEALER MANAGEMENT
+=================
+
+Admin can:
+
+• Approve Dealers
+• Reject Dealers
+• Dealer Pricing
+• Dealer Orders
+• Dealer Reports
+
+====================================================
+BLOG MANAGEMENT
+===============
+
+Admin can:
+
+• Create Blog
+• Edit Blog
+• Delete Blog
+• SEO Settings
+• Categories
+• Tags
+
+====================================================
+SEO MANAGEMENT
+==============
+
+Admin can manage:
+
+• Meta Titles
+• Meta Descriptions
+• Open Graph Tags
+• Schema Markup
+• Sitemap
+• Robots.txt
+
+====================================================
+SOCIAL MEDIA MANAGEMENT
+=======================
+
+Admin can manage:
+
+• Instagram Feed
+• Instagram URL
+• WhatsApp Number
+• Facebook
+• YouTube
+• LinkedIn
+
+====================================================
+CONTACT MANAGEMENT
+==================
+
+Admin can update:
+
+• Phone Number
+• WhatsApp Number
+• Email
+• Address
+• Google Maps Location
+
+====================================================
+USER ROLE SYSTEM
+================
+
+Roles:
+
+• Super Admin
+• Admin
+• Manager
+• Marketing Team
+• Customer Support
+• Dealer Manager
+
+Each role must have custom permissions.
+
+====================================================
+REPORTS & EXPORTS
+=================
+
+Admin can export:
+
+• Orders
+• Customers
+• Products
+• Dealers
+• Warranty Records
+• Feedback Reports
+
+Formats:
+
+• PDF
+• Excel
+• CSV
+
+====================================================
+ACTIVITY LOG SYSTEM
+===================
+
+Track everything.
+
+Examples:
+
+• Product Added
+• Product Edited
+• Banner Changed
+• Offer Updated
+• Order Modified
+
+Show:
+
+• User Name
+• Date
+• Time
+• Action
+
+====================================================
+FINAL REQUIREMENT
+=================
+
+The Admin Panel should be capable of handling:
+
+• 10,000+ Products
+• 100,000+ Customers
+• Unlimited Orders
+• Unlimited Offers
+• Unlimited Banners
+• Unlimited Blogs
+• Unlimited Dealers
+
+The Admin Panel must feel like a professional enterprise software system used by large international furnishing brands and should be powerful enough to run the complete YUNORA business from a single dashboard.

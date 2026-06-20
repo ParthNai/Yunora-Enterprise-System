@@ -1,0 +1,28 @@
+{
+  "functions": [
+    {
+      "source": "artifacts/api-server",
+      "codebase": "api-server",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "src"
+      ]
+    }
+  ],
+  "hosting": {
+    "public": "artifacts/yunora-admin/dist/public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

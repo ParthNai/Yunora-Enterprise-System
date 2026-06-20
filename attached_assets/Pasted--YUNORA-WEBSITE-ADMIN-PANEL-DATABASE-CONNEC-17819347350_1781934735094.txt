@@ -1,0 +1,349 @@
+====================================================
+YUNORA WEBSITE ↔ ADMIN PANEL ↔ DATABASE CONNECTION SYSTEM
+=========================================================
+
+This is a mandatory requirement.
+
+The Website, Admin Panel, Database, Storage System, APIs, CRM, Warranty System, Payment System, and Dealer Portal must all be connected through a single centralized backend architecture.
+
+Nothing should be hardcoded.
+
+Everything must be dynamic.
+
+====================================================
+CENTRAL DATABASE ARCHITECTURE
+=============================
+
+Use a centralized database.
+
+Recommended:
+
+• PostgreSQL (Preferred)
+or
+• MySQL
+
+All data must be stored in database.
+
+Examples:
+
+• Products
+• Categories
+• Collections
+• Orders
+• Customers
+• Dealers
+• Reviews
+• Blogs
+• Offers
+• Banners
+• Homepage Content
+• Warranty Records
+• Contact Forms
+• Support Tickets
+• Coupons
+• Analytics
+
+No content should be manually edited inside website code.
+
+====================================================
+DYNAMIC WEBSITE CONNECTION
+==========================
+
+Whenever Admin updates anything:
+
+• Product
+• Price
+• Banner
+• Offer
+• Collection
+• Blog
+• Contact Information
+• Homepage Content
+
+Changes must automatically appear on website.
+
+No redeployment required.
+
+No coding required.
+
+Instant update system required.
+
+====================================================
+MEDIA STORAGE SYSTEM
+====================
+
+Create structured storage folders.
+
+Example:
+
+/storage
+
+/storage/products
+
+/storage/categories
+
+/storage/collections
+
+/storage/banners
+
+/storage/festival-banners
+
+/storage/blogs
+
+/storage/reviews
+
+/storage/customers
+
+/storage/warranty
+
+/storage/invoices
+
+/storage/videos
+
+/storage/dealers
+
+/storage/social-media
+
+/storage/homepage
+
+/storage/about
+
+/storage/contact
+
+/storage/team
+
+====================================================
+PRODUCT MANAGEMENT FLOW
+=======================
+
+Admin Uploads Product
+
+↓
+
+Stored in Database
+
+↓
+
+Images Stored in Product Folder
+
+↓
+
+SEO Data Saved
+
+↓
+
+Website Automatically Updates
+
+↓
+
+Search Automatically Updates
+
+↓
+
+Filters Automatically Update
+
+↓
+
+Sitemap Automatically Updates
+
+====================================================
+OFFER MANAGEMENT FLOW
+=====================
+
+Admin Creates Offer
+
+↓
+
+Offer Saved in Database
+
+↓
+
+Offer Bar Updates
+
+↓
+
+Homepage Updates
+
+↓
+
+Banner Updates
+
+↓
+
+Product Discount Updates
+
+↓
+
+Website Updates Instantly
+
+====================================================
+HOMEPAGE BUILDER CONNECTION
+===========================
+
+Every homepage section must be database-driven.
+
+Admin can change:
+
+• Hero Banner
+• Hero Text
+• Buttons
+• Collections
+• Featured Products
+• Testimonials
+• Instagram Section
+• Trust Section
+• Footer
+
+Changes should instantly reflect on website.
+
+====================================================
+API ARCHITECTURE
+================
+
+Create professional REST APIs.
+
+Examples:
+
+/api/products
+
+/api/categories
+
+/api/orders
+
+/api/customers
+
+/api/reviews
+
+/api/blogs
+
+/api/warranty
+
+/api/dealers
+
+/api/offers
+
+/api/banners
+
+/api/homepage
+
+/api/settings
+
+All APIs must be secured.
+
+====================================================
+GLOBAL SETTINGS PANEL
+=====================
+
+Admin can update:
+
+• Company Name
+• Logo
+• Phone Number
+• WhatsApp Number
+• Email
+• Address
+• Google Map
+• Social Media Links
+• Razorpay Keys
+• SEO Settings
+
+One update should affect entire website.
+
+====================================================
+AUTOMATIC CACHE REFRESH
+=======================
+
+When Admin updates content:
+
+• Website Cache Refresh
+• API Cache Refresh
+• Search Cache Refresh
+
+Automatically.
+
+====================================================
+BACKUP SYSTEM
+=============
+
+Daily Backup
+
+Weekly Backup
+
+Monthly Backup
+
+Store:
+
+• Database
+• Images
+• Videos
+• Orders
+• Customers
+
+One-click Restore System.
+
+====================================================
+FOLDER STRUCTURE
+================
+
+Create professional project structure.
+
+Example:
+
+/frontend
+
+/backend
+
+/admin
+
+/database
+
+/storage
+
+/public
+
+/uploads
+
+/api
+
+/assets
+
+/components
+
+/pages
+
+/services
+
+/utils
+
+/config
+
+/logs
+
+/backups
+
+/docs
+
+Everything should be organized professionally.
+
+====================================================
+SUPER ADMIN REQUIREMENT
+=======================
+
+The Admin Panel should control 100% of the website.
+
+If a new product, banner, offer, blog, category, collection, dealer, review, warranty, Instagram post, contact detail, or homepage content is added from Admin Panel, it must automatically appear on the website without touching the code.
+
+The website and admin panel must behave as one connected ecosystem.
+
+====================================================
+FINAL REQUIREMENT
+=================
+
+Build the architecture in such a way that:
+
+• Future Mobile App can connect easily.
+• Future ERP can connect easily.
+• Future CRM can connect easily.
+• Future AI modules can connect easily.
+
+The entire YUNORA platform should operate from a single database and a single admin control center while updating the website in real time.

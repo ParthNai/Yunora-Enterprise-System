@@ -1,0 +1,160 @@
+====================================================
+YUNORA BUSINESS ERP, CRM & AUTOMATION SYSTEM
+============================================
+
+This Admin Panel must not be limited to managing products and orders.
+
+It must function as a complete business management system.
+
+====================================================
+CRM (CUSTOMER RELATIONSHIP MANAGEMENT)
+======================================
+
+Admin can:
+
+• View Customer Journey
+• Track Customer Activity
+• Track Product Interests
+• Track Cart Abandonment
+• Track Purchase History
+
+Customer Timeline:
+
+• Registration Date
+• Orders
+• Warranty Claims
+• Reviews
+• Support Requests
+
+====================================================
+LEAD MANAGEMENT SYSTEM
+======================
+
+Capture leads from:
+
+• Contact Form
+• Dealer Form
+• WhatsApp Inquiry
+• Call Request
+• Product Inquiry
+
+Lead Status:
+
+• New
+• Contacted
+• Interested
+• Follow Up
+• Converted
+• Closed
+
+====================================================
+MARKETING AUTOMATION
+====================
+
+Admin can create:
+
+• Email Campaigns
+• WhatsApp Campaigns
+• Festival Campaigns
+• New Product Launch Campaigns
+
+Schedule campaigns automatically.
+
+====================================================
+ABANDONED CART RECOVERY
+=======================
+
+If customer leaves cart:
+
+Send:
+
+• Email Reminder
+• WhatsApp Reminder
+
+Admin can track recovery rate.
+
+====================================================
+DELIVERY MANAGEMENT
+===================
+
+Integrate:
+
+• Shiprocket
+• Delhivery
+• DTDC
+• India Post
+
+Admin can:
+
+• Generate Shipping Labels
+• Track Shipments
+• Manage Delivery Status
+
+====================================================
+GST & BILLING SYSTEM
+====================
+
+Generate:
+
+• GST Invoices
+• Tax Reports
+• Sales Reports
+
+Support:
+
+• GST Number
+• HSN Codes
+• Tax Breakdown
+
+====================================================
+SUPPORT TICKET SYSTEM
+=====================
+
+Customers can create:
+
+• Product Support Tickets
+• Warranty Tickets
+• Delivery Tickets
+
+Admin can:
+
+• Reply
+• Assign Staff
+• Resolve Tickets
+
+====================================================
+BACKUP & RESTORE SYSTEM
+=======================
+
+Automatic Backups:
+
+• Daily
+• Weekly
+• Monthly
+
+One-click Restore.
+
+====================================================
+SYSTEM HEALTH MONITOR
+=====================
+
+Admin Dashboard shows:
+
+• Server Health
+• Database Health
+• API Health
+• Storage Usage
+• Traffic Status
+
+====================================================
+SUPER ADMIN REQUIREMENT
+=======================
+
+The Admin Panel should feel like:
+
+• Shopify Admin
+• Zoho CRM
+• ERPNext
+• Amazon Seller Panel
+
+Everything must be fast, secure, scalable, and enterprise-grade.

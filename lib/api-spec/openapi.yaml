@@ -1,0 +1,2228 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: Yunora Enterprise Admin API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: dashboard
+    description: Dashboard analytics
+  - name: products
+    description: Product management
+  - name: categories
+    description: Category management
+  - name: orders
+    description: Order management
+  - name: customers
+    description: Customer management
+  - name: dealers
+    description: Dealer management
+  - name: inventory
+    description: Inventory & warehouse management
+  - name: banners
+    description: Banner management
+  - name: offers
+    description: Offer bar management
+  - name: coupons
+    description: Coupon management
+  - name: campaigns
+    description: Festival campaign management
+  - name: leads
+    description: Lead management
+  - name: warranty
+    description: Warranty management
+  - name: reviews
+    description: Review & feedback management
+  - name: blogs
+    description: Blog management
+  - name: tickets
+    description: Support ticket system
+  - name: activity
+    description: Activity log
+  - name: settings
+    description: Site settings
+  - name: Storage
+    description: Object storage upload and serving endpoints.
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  # ─── DASHBOARD ───────────────────────────────────────────────────────────────
+  /dashboard/stats:
+    get:
+      operationId: getDashboardStats
+      tags: [dashboard]
+      summary: Get key dashboard KPIs
+      responses:
+        "200":
+          description: Dashboard statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+
+  /dashboard/revenue-chart:
+    get:
+      operationId: getRevenueChart
+      tags: [dashboard]
+      summary: Monthly revenue chart data
+      parameters:
+        - in: query
+          name: months
+          schema:
+            type: integer
+            default: 12
+      responses:
+        "200":
+          description: Revenue chart data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RevenueDataPoint"
+
+  /dashboard/top-products:
+    get:
+      operationId: getTopProducts
+      tags: [dashboard]
+      summary: Top selling products
+      responses:
+        "200":
+          description: Top products list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TopProduct"
+
+  /dashboard/recent-orders:
+    get:
+      operationId: getRecentOrders
+      tags: [dashboard]
+      summary: Recent orders for dashboard
+      responses:
+        "200":
+          description: Recent orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Order"
+
+  /dashboard/order-status-breakdown:
+    get:
+      operationId: getOrderStatusBreakdown
+      tags: [dashboard]
+      summary: Orders broken down by status
+      responses:
+        "200":
+          description: Order status counts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/StatusCount"
+
+  # ─── PRODUCTS ────────────────────────────────────────────────────────────────
+  /products:
+    get:
+      operationId: listProducts
+      tags: [products]
+      summary: List all products
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+        - in: query
+          name: categoryId
+          schema:
+            type: integer
+        - in: query
+          name: status
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductList"
+    post:
+      operationId: createProduct
+      tags: [products]
+      summary: Create a product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+
+  /products/{id}:
+    get:
+      operationId: getProduct
+      tags: [products]
+      summary: Get product by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+    patch:
+      operationId: updateProduct
+      tags: [products]
+      summary: Update a product
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductUpdate"
+      responses:
+        "200":
+          description: Updated product
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+    delete:
+      operationId: deleteProduct
+      tags: [products]
+      summary: Delete a product
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # ─── CATEGORIES ──────────────────────────────────────────────────────────────
+  /categories:
+    get:
+      operationId: listCategories
+      tags: [categories]
+      summary: List categories
+      responses:
+        "200":
+          description: Category list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+    post:
+      operationId: createCategory
+      tags: [categories]
+      summary: Create category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoryInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+
+  /categories/{id}:
+    patch:
+      operationId: updateCategory
+      tags: [categories]
+      summary: Update category
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoryInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+    delete:
+      operationId: deleteCategory
+      tags: [categories]
+      summary: Delete category
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # ─── ORDERS ──────────────────────────────────────────────────────────────────
+  /orders:
+    get:
+      operationId: listOrders
+      tags: [orders]
+      summary: List orders
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: search
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Order list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderList"
+
+  /orders/{id}:
+    get:
+      operationId: getOrder
+      tags: [orders]
+      summary: Get order by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Order
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+    patch:
+      operationId: updateOrder
+      tags: [orders]
+      summary: Update order status
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderUpdate"
+      responses:
+        "200":
+          description: Updated order
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+
+  # ─── CUSTOMERS ───────────────────────────────────────────────────────────────
+  /customers:
+    get:
+      operationId: listCustomers
+      tags: [customers]
+      summary: List customers
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: search
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Customer list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerList"
+
+  /customers/{id}:
+    get:
+      operationId: getCustomer
+      tags: [customers]
+      summary: Get customer detail
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Customer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+
+  # ─── DEALERS ─────────────────────────────────────────────────────────────────
+  /dealers:
+    get:
+      operationId: listDealers
+      tags: [dealers]
+      summary: List dealers
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: status
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Dealer list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DealerList"
+    post:
+      operationId: createDealer
+      tags: [dealers]
+      summary: Create dealer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DealerInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dealer"
+
+  /dealers/{id}:
+    get:
+      operationId: getDealer
+      tags: [dealers]
+      summary: Get dealer
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Dealer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dealer"
+    patch:
+      operationId: updateDealer
+      tags: [dealers]
+      summary: Update dealer
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DealerUpdate"
+      responses:
+        "200":
+          description: Updated dealer
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dealer"
+
+  # ─── INVENTORY / WAREHOUSES ───────────────────────────────────────────────────
+  /warehouses:
+    get:
+      operationId: listWarehouses
+      tags: [inventory]
+      summary: List warehouses
+      responses:
+        "200":
+          description: Warehouse list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Warehouse"
+    post:
+      operationId: createWarehouse
+      tags: [inventory]
+      summary: Create warehouse
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WarehouseInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Warehouse"
+
+  /inventory:
+    get:
+      operationId: listInventory
+      tags: [inventory]
+      summary: List inventory items
+      parameters:
+        - in: query
+          name: warehouseId
+          schema:
+            type: integer
+        - in: query
+          name: lowStock
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Inventory list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/InventoryItem"
+
+  # ─── BANNERS ─────────────────────────────────────────────────────────────────
+  /banners:
+    get:
+      operationId: listBanners
+      tags: [banners]
+      summary: List banners
+      responses:
+        "200":
+          description: Banner list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Banner"
+    post:
+      operationId: createBanner
+      tags: [banners]
+      summary: Create banner
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BannerInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Banner"
+
+  /banners/{id}:
+    patch:
+      operationId: updateBanner
+      tags: [banners]
+      summary: Update banner
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BannerInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Banner"
+    delete:
+      operationId: deleteBanner
+      tags: [banners]
+      summary: Delete banner
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # ─── OFFERS ──────────────────────────────────────────────────────────────────
+  /offers:
+    get:
+      operationId: listOffers
+      tags: [offers]
+      summary: List offer bar items
+      responses:
+        "200":
+          description: Offer list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Offer"
+    post:
+      operationId: createOffer
+      tags: [offers]
+      summary: Create offer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OfferInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Offer"
+
+  /offers/{id}:
+    patch:
+      operationId: updateOffer
+      tags: [offers]
+      summary: Update offer
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OfferInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Offer"
+    delete:
+      operationId: deleteOffer
+      tags: [offers]
+      summary: Delete offer
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # ─── COUPONS ─────────────────────────────────────────────────────────────────
+  /coupons:
+    get:
+      operationId: listCoupons
+      tags: [coupons]
+      summary: List coupons
+      responses:
+        "200":
+          description: Coupon list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Coupon"
+    post:
+      operationId: createCoupon
+      tags: [coupons]
+      summary: Create coupon
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CouponInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Coupon"
+
+  /coupons/{id}:
+    patch:
+      operationId: updateCoupon
+      tags: [coupons]
+      summary: Update coupon
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CouponInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Coupon"
+    delete:
+      operationId: deleteCoupon
+      tags: [coupons]
+      summary: Delete coupon
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # ─── CAMPAIGNS ───────────────────────────────────────────────────────────────
+  /campaigns:
+    get:
+      operationId: listCampaigns
+      tags: [campaigns]
+      summary: List campaigns
+      responses:
+        "200":
+          description: Campaign list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Campaign"
+    post:
+      operationId: createCampaign
+      tags: [campaigns]
+      summary: Create campaign
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CampaignInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Campaign"
+
+  /campaigns/{id}:
+    patch:
+      operationId: updateCampaign
+      tags: [campaigns]
+      summary: Update campaign
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CampaignInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Campaign"
+
+  # ─── LEADS ───────────────────────────────────────────────────────────────────
+  /leads:
+    get:
+      operationId: listLeads
+      tags: [leads]
+      summary: List leads
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: page
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Lead list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LeadList"
+    post:
+      operationId: createLead
+      tags: [leads]
+      summary: Create lead
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeadInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lead"
+
+  /leads/{id}:
+    patch:
+      operationId: updateLead
+      tags: [leads]
+      summary: Update lead status
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LeadUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Lead"
+
+  # ─── WARRANTY ────────────────────────────────────────────────────────────────
+  /warranty:
+    get:
+      operationId: listWarranty
+      tags: [warranty]
+      summary: List warranty claims
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Warranty list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/WarrantyClaim"
+
+  /warranty/{id}:
+    patch:
+      operationId: updateWarrantyClaim
+      tags: [warranty]
+      summary: Update warranty claim
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WarrantyUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WarrantyClaim"
+
+  # ─── REVIEWS ─────────────────────────────────────────────────────────────────
+  /reviews:
+    get:
+      operationId: listReviews
+      tags: [reviews]
+      summary: List reviews
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Review list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Review"
+
+  /reviews/{id}:
+    patch:
+      operationId: updateReview
+      tags: [reviews]
+      summary: Approve/reject/feature review
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Review"
+
+  # ─── BLOGS ───────────────────────────────────────────────────────────────────
+  /blogs:
+    get:
+      operationId: listBlogs
+      tags: [blogs]
+      summary: List blogs
+      responses:
+        "200":
+          description: Blog list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Blog"
+    post:
+      operationId: createBlog
+      tags: [blogs]
+      summary: Create blog
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlogInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Blog"
+
+  /blogs/{id}:
+    get:
+      operationId: getBlog
+      tags: [blogs]
+      summary: Get blog
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Blog
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Blog"
+    patch:
+      operationId: updateBlog
+      tags: [blogs]
+      summary: Update blog
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlogInput"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Blog"
+    delete:
+      operationId: deleteBlog
+      tags: [blogs]
+      summary: Delete blog
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # ─── SUPPORT TICKETS ─────────────────────────────────────────────────────────
+  /tickets:
+    get:
+      operationId: listTickets
+      tags: [tickets]
+      summary: List support tickets
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Ticket list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Ticket"
+    post:
+      operationId: createTicket
+      tags: [tickets]
+      summary: Create ticket
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TicketInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+
+  /tickets/{id}:
+    patch:
+      operationId: updateTicket
+      tags: [tickets]
+      summary: Update ticket
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TicketUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ticket"
+
+  # ─── ACTIVITY LOG ─────────────────────────────────────────────────────────────
+  /activity:
+    get:
+      operationId: listActivity
+      tags: [activity]
+      summary: List activity log entries
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Activity log
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ActivityLog"
+
+  # ─── SETTINGS ────────────────────────────────────────────────────────────────
+  /settings:
+    get:
+      operationId: getSettings
+      tags: [settings]
+      summary: Get site settings
+      responses:
+        "200":
+          description: Settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SiteSettings"
+    patch:
+      operationId: updateSettings
+      tags: [settings]
+      summary: Update site settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SiteSettingsInput"
+      responses:
+        "200":
+          description: Updated settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SiteSettings"
+
+  /storage/uploads/request-url:
+    post:
+      tags: [Storage]
+      operationId: requestUploadUrl
+      summary: Request a presigned URL for file upload
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadUrlRequest'
+      responses:
+        '200':
+          description: Presigned upload URL generated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadUrlResponse'
+        '400':
+          description: Missing or invalid fields.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+
+  /storage/objects/{objectPath}:
+    get:
+      tags: [Storage]
+      operationId: getStorageObject
+      summary: Serve an object entity
+      parameters:
+        - name: objectPath
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Object content.
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEnvelope'
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+
+    # ─── DASHBOARD ─────────────────────────────────────────────────────────────
+    DashboardStats:
+      type: object
+      required:
+        - totalRevenue
+        - todayRevenue
+        - monthlyRevenue
+        - totalOrders
+        - pendingOrders
+        - deliveredOrders
+        - cancelledOrders
+        - totalCustomers
+        - activeCustomers
+        - totalDealers
+        - lowStockProducts
+        - totalProducts
+        - warrantyRequests
+        - openTickets
+        - conversionRate
+        - cartAbandonment
+      properties:
+        totalRevenue:
+          type: number
+        todayRevenue:
+          type: number
+        monthlyRevenue:
+          type: number
+        totalOrders:
+          type: integer
+        pendingOrders:
+          type: integer
+        deliveredOrders:
+          type: integer
+        cancelledOrders:
+          type: integer
+        totalCustomers:
+          type: integer
+        activeCustomers:
+          type: integer
+        totalDealers:
+          type: integer
+        lowStockProducts:
+          type: integer
+        totalProducts:
+          type: integer
+        warrantyRequests:
+          type: integer
+        openTickets:
+          type: integer
+        conversionRate:
+          type: number
+        cartAbandonment:
+          type: number
+
+    RevenueDataPoint:
+      type: object
+      required: [month, revenue, orders]
+      properties:
+        month:
+          type: string
+        revenue:
+          type: number
+        orders:
+          type: integer
+
+    TopProduct:
+      type: object
+      required: [id, name, sales, revenue, imageUrl]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        sales:
+          type: integer
+        revenue:
+          type: number
+        imageUrl:
+          type: string
+
+    StatusCount:
+      type: object
+      required: [status, count]
+      properties:
+        status:
+          type: string
+        count:
+          type: integer
+
+    # ─── PRODUCT ───────────────────────────────────────────────────────────────
+    Product:
+      type: object
+      required: [id, name, sku, price, stock, status, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        sku:
+          type: string
+        categoryId:
+          type: ["integer", "null"]
+        categoryName:
+          type: ["string", "null"]
+        brand:
+          type: ["string", "null"]
+        price:
+          type: number
+        salePrice:
+          type: ["number", "null"]
+        stock:
+          type: integer
+        color:
+          type: ["string", "null"]
+        material:
+          type: ["string", "null"]
+        description:
+          type: ["string", "null"]
+        imageUrl:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [active, inactive, draft]
+        createdAt:
+          type: string
+
+    ProductList:
+      type: object
+      required: [items, total, page, limit]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Product"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+
+    ProductInput:
+      type: object
+      required: [name, sku, price, stock]
+      properties:
+        name:
+          type: string
+        sku:
+          type: string
+        categoryId:
+          type: ["integer", "null"]
+        brand:
+          type: ["string", "null"]
+        price:
+          type: number
+        salePrice:
+          type: ["number", "null"]
+        stock:
+          type: integer
+        color:
+          type: ["string", "null"]
+        material:
+          type: ["string", "null"]
+        description:
+          type: ["string", "null"]
+        imageUrl:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [active, inactive, draft]
+
+    ProductUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        sku:
+          type: string
+        categoryId:
+          type: ["integer", "null"]
+        brand:
+          type: ["string", "null"]
+        price:
+          type: number
+        salePrice:
+          type: ["number", "null"]
+        stock:
+          type: integer
+        color:
+          type: ["string", "null"]
+        material:
+          type: ["string", "null"]
+        description:
+          type: ["string", "null"]
+        imageUrl:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [active, inactive, draft]
+
+    # ─── CATEGORY ──────────────────────────────────────────────────────────────
+    Category:
+      type: object
+      required: [id, name, slug]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+        parentId:
+          type: ["integer", "null"]
+        imageUrl:
+          type: ["string", "null"]
+        productCount:
+          type: integer
+
+    CategoryInput:
+      type: object
+      required: [name, slug]
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        parentId:
+          type: ["integer", "null"]
+        imageUrl:
+          type: ["string", "null"]
+
+    # ─── ORDER ─────────────────────────────────────────────────────────────────
+    Order:
+      type: object
+      required: [id, orderNumber, customerName, total, status, createdAt]
+      properties:
+        id:
+          type: integer
+        orderNumber:
+          type: string
+        customerName:
+          type: string
+        customerEmail:
+          type: string
+        total:
+          type: number
+        status:
+          type: string
+          enum: [pending, confirmed, processing, shipped, delivered, cancelled, refunded]
+        paymentStatus:
+          type: string
+        items:
+          type: integer
+        city:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    OrderList:
+      type: object
+      required: [items, total, page, limit]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Order"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+
+    OrderUpdate:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [pending, confirmed, processing, shipped, delivered, cancelled, refunded]
+        trackingNumber:
+          type: ["string", "null"]
+
+    # ─── CUSTOMER ──────────────────────────────────────────────────────────────
+    Customer:
+      type: object
+      required: [id, name, email, totalOrders, totalSpent, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: ["string", "null"]
+        city:
+          type: ["string", "null"]
+        totalOrders:
+          type: integer
+        totalSpent:
+          type: number
+        lastOrderAt:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    CustomerList:
+      type: object
+      required: [items, total, page, limit]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Customer"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+
+    # ─── DEALER ────────────────────────────────────────────────────────────────
+    Dealer:
+      type: object
+      required: [id, businessName, contactName, email, status, createdAt]
+      properties:
+        id:
+          type: integer
+        businessName:
+          type: string
+        contactName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: ["string", "null"]
+        city:
+          type: ["string", "null"]
+        discountPercent:
+          type: number
+        totalOrders:
+          type: integer
+        status:
+          type: string
+          enum: [pending, approved, rejected, suspended]
+        createdAt:
+          type: string
+
+    DealerList:
+      type: object
+      required: [items, total, page, limit]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Dealer"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+
+    DealerInput:
+      type: object
+      required: [businessName, contactName, email]
+      properties:
+        businessName:
+          type: string
+        contactName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: ["string", "null"]
+        city:
+          type: ["string", "null"]
+        discountPercent:
+          type: number
+
+    DealerUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [pending, approved, rejected, suspended]
+        discountPercent:
+          type: number
+
+    # ─── WAREHOUSE ─────────────────────────────────────────────────────────────
+    Warehouse:
+      type: object
+      required: [id, name, city, address]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        city:
+          type: string
+        address:
+          type: string
+        phone:
+          type: ["string", "null"]
+        totalItems:
+          type: integer
+
+    WarehouseInput:
+      type: object
+      required: [name, city, address]
+      properties:
+        name:
+          type: string
+        city:
+          type: string
+        address:
+          type: string
+        phone:
+          type: ["string", "null"]
+
+    InventoryItem:
+      type: object
+      required: [id, productId, productName, warehouseName, stock, lowStockThreshold]
+      properties:
+        id:
+          type: integer
+        productId:
+          type: integer
+        productName:
+          type: string
+        sku:
+          type: string
+        warehouseName:
+          type: string
+        stock:
+          type: integer
+        lowStockThreshold:
+          type: integer
+        isLowStock:
+          type: boolean
+
+    # ─── BANNER ────────────────────────────────────────────────────────────────
+    Banner:
+      type: object
+      required: [id, title, imageUrl, type, isActive]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        imageUrl:
+          type: string
+        linkUrl:
+          type: ["string", "null"]
+        type:
+          type: string
+          enum: [homepage, mobile, category, festival, collection]
+        isActive:
+          type: boolean
+        priority:
+          type: integer
+        startsAt:
+          type: ["string", "null"]
+        expiresAt:
+          type: ["string", "null"]
+
+    BannerInput:
+      type: object
+      required: [title, imageUrl, type]
+      properties:
+        title:
+          type: string
+        imageUrl:
+          type: string
+        linkUrl:
+          type: ["string", "null"]
+        type:
+          type: string
+          enum: [homepage, mobile, category, festival, collection]
+        isActive:
+          type: boolean
+        priority:
+          type: integer
+        startsAt:
+          type: ["string", "null"]
+        expiresAt:
+          type: ["string", "null"]
+
+    # ─── OFFER ─────────────────────────────────────────────────────────────────
+    Offer:
+      type: object
+      required: [id, text, isActive, priority]
+      properties:
+        id:
+          type: integer
+        text:
+          type: string
+        isActive:
+          type: boolean
+        priority:
+          type: integer
+        startsAt:
+          type: ["string", "null"]
+        expiresAt:
+          type: ["string", "null"]
+
+    OfferInput:
+      type: object
+      required: [text]
+      properties:
+        text:
+          type: string
+        isActive:
+          type: boolean
+        priority:
+          type: integer
+        startsAt:
+          type: ["string", "null"]
+        expiresAt:
+          type: ["string", "null"]
+
+    # ─── COUPON ────────────────────────────────────────────────────────────────
+    Coupon:
+      type: object
+      required: [id, code, type, value, isActive]
+      properties:
+        id:
+          type: integer
+        code:
+          type: string
+        type:
+          type: string
+          enum: [percentage, fixed]
+        value:
+          type: number
+        minOrderAmount:
+          type: ["number", "null"]
+        usageLimit:
+          type: ["integer", "null"]
+        usageCount:
+          type: integer
+        isActive:
+          type: boolean
+        expiresAt:
+          type: ["string", "null"]
+
+    CouponInput:
+      type: object
+      required: [code, type, value]
+      properties:
+        code:
+          type: string
+        type:
+          type: string
+          enum: [percentage, fixed]
+        value:
+          type: number
+        minOrderAmount:
+          type: ["number", "null"]
+        usageLimit:
+          type: ["integer", "null"]
+        isActive:
+          type: boolean
+        expiresAt:
+          type: ["string", "null"]
+
+    # ─── CAMPAIGN ──────────────────────────────────────────────────────────────
+    Campaign:
+      type: object
+      required: [id, name, type, isActive]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: ["string", "null"]
+        isActive:
+          type: boolean
+        startsAt:
+          type: ["string", "null"]
+        endsAt:
+          type: ["string", "null"]
+
+    CampaignInput:
+      type: object
+      required: [name, type]
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: ["string", "null"]
+        isActive:
+          type: boolean
+        startsAt:
+          type: ["string", "null"]
+        endsAt:
+          type: ["string", "null"]
+
+    # ─── LEAD ──────────────────────────────────────────────────────────────────
+    Lead:
+      type: object
+      required: [id, name, email, source, status, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: ["string", "null"]
+        source:
+          type: string
+          enum: [contact_form, dealer_form, whatsapp, call_request, product_inquiry]
+        status:
+          type: string
+          enum: [new, contacted, interested, follow_up, converted, closed]
+        notes:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    LeadList:
+      type: object
+      required: [items, total, page, limit]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Lead"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+
+    LeadInput:
+      type: object
+      required: [name, email, source]
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: ["string", "null"]
+        source:
+          type: string
+          enum: [contact_form, dealer_form, whatsapp, call_request, product_inquiry]
+        notes:
+          type: ["string", "null"]
+
+    LeadUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [new, contacted, interested, follow_up, converted, closed]
+        notes:
+          type: ["string", "null"]
+
+    # ─── WARRANTY ──────────────────────────────────────────────────────────────
+    WarrantyClaim:
+      type: object
+      required: [id, customerName, productName, status, createdAt]
+      properties:
+        id:
+          type: integer
+        customerName:
+          type: string
+        productName:
+          type: string
+        orderId:
+          type: ["integer", "null"]
+        issue:
+          type: string
+        status:
+          type: string
+          enum: [pending, under_review, approved, rejected, resolved]
+        createdAt:
+          type: string
+
+    WarrantyUpdate:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [pending, under_review, approved, rejected, resolved]
+        adminNotes:
+          type: ["string", "null"]
+
+    # ─── REVIEW ────────────────────────────────────────────────────────────────
+    Review:
+      type: object
+      required: [id, customerName, productName, rating, status, createdAt]
+      properties:
+        id:
+          type: integer
+        customerName:
+          type: string
+        productName:
+          type: string
+        rating:
+          type: integer
+        comment:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [pending, approved, rejected, featured, hidden]
+        createdAt:
+          type: string
+
+    ReviewUpdate:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [pending, approved, rejected, featured, hidden]
+
+    # ─── BLOG ──────────────────────────────────────────────────────────────────
+    Blog:
+      type: object
+      required: [id, title, slug, status, createdAt]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        slug:
+          type: string
+        excerpt:
+          type: ["string", "null"]
+        content:
+          type: ["string", "null"]
+        imageUrl:
+          type: ["string", "null"]
+        category:
+          type: ["string", "null"]
+        tags:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [draft, published, archived]
+        metaTitle:
+          type: ["string", "null"]
+        metaDescription:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    BlogInput:
+      type: object
+      required: [title, slug]
+      properties:
+        title:
+          type: string
+        slug:
+          type: string
+        excerpt:
+          type: ["string", "null"]
+        content:
+          type: ["string", "null"]
+        imageUrl:
+          type: ["string", "null"]
+        category:
+          type: ["string", "null"]
+        tags:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [draft, published, archived]
+        metaTitle:
+          type: ["string", "null"]
+        metaDescription:
+          type: ["string", "null"]
+
+    # ─── TICKET ────────────────────────────────────────────────────────────────
+    Ticket:
+      type: object
+      required: [id, subject, customerName, type, status, createdAt]
+      properties:
+        id:
+          type: integer
+        subject:
+          type: string
+        customerName:
+          type: string
+        customerEmail:
+          type: string
+        type:
+          type: string
+          enum: [product_support, warranty, delivery, general]
+        status:
+          type: string
+          enum: [open, in_progress, resolved, closed]
+        priority:
+          type: string
+          enum: [low, medium, high, urgent]
+        createdAt:
+          type: string
+
+    TicketInput:
+      type: object
+      required: [subject, customerName, customerEmail, type]
+      properties:
+        subject:
+          type: string
+        customerName:
+          type: string
+        customerEmail:
+          type: string
+        type:
+          type: string
+          enum: [product_support, warranty, delivery, general]
+        priority:
+          type: string
+          enum: [low, medium, high, urgent]
+
+    TicketUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [open, in_progress, resolved, closed]
+        priority:
+          type: string
+          enum: [low, medium, high, urgent]
+        assignedTo:
+          type: ["string", "null"]
+
+    # ─── ACTIVITY LOG ──────────────────────────────────────────────────────────
+    ActivityLog:
+      type: object
+      required: [id, action, entity, user, createdAt]
+      properties:
+        id:
+          type: integer
+        action:
+          type: string
+        entity:
+          type: string
+        entityId:
+          type: ["integer", "null"]
+        user:
+          type: string
+        details:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    # ─── SETTINGS ──────────────────────────────────────────────────────────────
+    SiteSettings:
+      type: object
+      required: [id, siteName, email, phone]
+      properties:
+        id:
+          type: integer
+        siteName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        whatsapp:
+          type: ["string", "null"]
+        address:
+          type: ["string", "null"]
+        facebook:
+          type: ["string", "null"]
+        instagram:
+          type: ["string", "null"]
+        youtube:
+          type: ["string", "null"]
+        linkedin:
+          type: ["string", "null"]
+        twitter:
+          type: ["string", "null"]
+        pinterest:
+          type: ["string", "null"]
+        googleMapsEmbed:
+          type: ["string", "null"]
+        razorpayKeyId:
+          type: ["string", "null"]
+        razorpayKeySecret:
+          type: ["string", "null"]
+
+    SiteSettingsInput:
+      type: object
+      properties:
+        siteName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        whatsapp:
+          type: ["string", "null"]
+        address:
+          type: ["string", "null"]
+        facebook:
+          type: ["string", "null"]
+        instagram:
+          type: ["string", "null"]
+        youtube:
+          type: ["string", "null"]
+        linkedin:
+          type: ["string", "null"]
+        twitter:
+          type: ["string", "null"]
+        pinterest:
+          type: ["string", "null"]
+        googleMapsEmbed:
+          type: ["string", "null"]
+        razorpayKeyId:
+          type: ["string", "null"]
+        razorpayKeySecret:
+          type: ["string", "null"]
+
+    # ─── STORAGE ────────────────────────────────────────────────────────────────
+    UploadUrlRequest:
+      type: object
+      required: [name, size, contentType]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        size:
+          type: integer
+          minimum: 1
+        contentType:
+          type: string
+          minLength: 1
+    UploadUrlResponse:
+      type: object
+      required: [uploadURL, objectPath]
+      properties:
+        uploadURL:
+          type: string
+          format: uri
+        objectPath:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/UploadUrlRequest'
+    ErrorEnvelope:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
