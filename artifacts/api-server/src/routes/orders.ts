@@ -68,7 +68,7 @@ router.get("/customers", async (req, res): Promise<void> => {
   ]);
 
   res.json({
-    items: items.map(c => ({
+    items: items.map((c: any) => ({
       ...c,
       totalSpent: parseFloat(c.totalSpent as unknown as string),
       lastOrderAt: c.lastOrderAt ? c.lastOrderAt.toISOString() : null,
@@ -76,8 +76,8 @@ router.get("/customers", async (req, res): Promise<void> => {
     })),
     total: totalRow[0]?.count ?? 0,
     page,
-    limit,
-  });
+  limit,
+});
 });
 
 router.get("/customers/:id", async (req, res): Promise<void> => {

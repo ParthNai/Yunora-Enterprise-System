@@ -48,17 +48,17 @@ router.get("/products", async (req, res): Promise<void> => {
   ]);
 
   res.json({
-    items.map((p: any) => ({
+    items: items.map((p: any) => ({
       ...p,
       price: parseFloat(p.price as unknown as string),
       salePrice: p.salePrice ? parseFloat(p.salePrice as unknown as string) : null,
       categoryName: null,
       createdAt: (p.createdAt as Date).toISOString(),
-    })),
-    total: totalRow[0]?.count ?? 0,
-    page,
-    limit,
-  });
+  })),
+  total: totalRow[0]?.count ?? 0,
+  page,
+  limit,
+});
 });
 
 router.post("/products", async (req, res): Promise<void> => {
