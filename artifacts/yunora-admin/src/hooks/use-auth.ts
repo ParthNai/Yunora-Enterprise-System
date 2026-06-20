@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "wouter";
+import { apiFetch } from "@/lib/api";
 
 export type AdminUser = {
   id: number;
@@ -9,7 +10,7 @@ export type AdminUser = {
 };
 
 async function fetchMe(): Promise<AdminUser | null> {
-  const res = await fetch("/api/auth/me", { credentials: "include" });
+  const res = await apiFetch("/api/auth/me", { credentials: "include" });
   if (res.status === 401) return null;
   if (!res.ok) return null;
   return res.json();
@@ -28,7 +29,7 @@ export function useAuth() {
 
   const login = useMutation({
     mutationFn: async (credentials: { email: string; password: string }) => {
-      const res = await fetch("/api/auth/login", {
+      const res = await apiFetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -48,7 +49,7 @@ export function useAuth() {
 
   const logout = useMutation({
     mutationFn: async () => {
-      await fetch("/api/auth/logout", {
+      await apiFetch("/api/auth/logout", {
         method: "POST",
         credentials: "include",
       });

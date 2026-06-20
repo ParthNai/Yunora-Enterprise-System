@@ -13,6 +13,7 @@ import { Plus, Edit2, Trash2, GripVertical, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import { ImageUpload } from "@/components/image-upload";
+import { apiFetch } from "@/lib/api";
 
 const SECTION_LABELS: Record<string, string> = {
   hero: "Hero Banner",
@@ -68,12 +69,12 @@ export default function Homepage() {
 
   const { data: sections, isLoading } = useQuery<Section[]>({
     queryKey: ["/api/homepage-sections"],
-    queryFn: () => fetch("/api/homepage-sections").then(r => r.json()),
+    queryFn: () => apiFetch("/api/homepage-sections").then(r => r.json()),
   });
 
   const createSection = useMutation({
     mutationFn: (data: typeof emptyForm) =>
-      fetch("/api/homepage-sections", {
+      apiFetch("/api/homepage-sections", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -88,7 +89,7 @@ export default function Homepage() {
 
   const updateSection = useMutation({
     mutationFn: ({ id, data }: { id: number; data: Partial<typeof emptyForm> }) =>
-      fetch(`/api/homepage-sections/${id}`, {
+      apiFetch(`/api/homepage-sections/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -104,7 +105,7 @@ export default function Homepage() {
 
   const deleteSection = useMutation({
     mutationFn: (id: number) =>
-      fetch(`/api/homepage-sections/${id}`, { method: "DELETE" }),
+      apiFetch(`/api/homepage-sections/${id}`, { method: "DELETE" }),
     onSuccess: () => {
       toast({ title: "Section deleted" });
       qc.invalidateQueries({ queryKey: ["/api/homepage-sections"] });

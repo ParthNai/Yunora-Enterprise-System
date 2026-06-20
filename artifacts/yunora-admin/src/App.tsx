@@ -42,10 +42,12 @@ const queryClient = new QueryClient({
   },
 });
 
+import { apiFetch } from "@/lib/api";
+
 type AdminUser = { id: number; name: string; email: string; role: string };
 
 async function fetchMe(): Promise<AdminUser | null> {
-  const res = await fetch("/api/auth/me", { credentials: "include" });
+  const res = await apiFetch("/api/auth/me", { credentials: "include" });
   if (res.status === 401) return null;
   if (!res.ok) return null;
   return res.json();
